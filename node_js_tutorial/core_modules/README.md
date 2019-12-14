@@ -467,3 +467,24 @@ Process events:
 [more details at https://nodejs.org/api/process.html]
 
 <!-- TODO: make a worthy tuto on process -->
+
+
+## Query Strings
+
+
+## Readline
+
+The readline module provides an interface for reading data from a Readable stream (such as process.stdin) one line at a time. It can be accessed using:
+
+```JS
+  const readline = require('readline');
+```
+
+Readline events are:
+* close
+* line
+* pause
+* resume
+* SIGCONT
+* SIGINT
+* SIGSTP
