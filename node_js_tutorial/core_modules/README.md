@@ -488,3 +488,95 @@ Readline events are:
 * SIGCONT
 * SIGINT
 * SIGSTP
+
+## REPL
+
+The repl module provides a Read-Eval-Print-Loop (REPL) implementation that is available both as a standalone program or includible in other applications. It can be accessed using:
+
+```JS
+  const repl = require('repl');
+```
+
+The following special commands are supported by all REPL instances:
+
+  * .break: When in the process of inputting a multi-line expression, entering the .break command (or pressing the ctrl-C key combination) will abort further input or processing of that expression.
+
+  * .clear: Resets the REPL context to an empty object and clears any multi-line expression currently being input.
+
+  * .exit: Close the I/O stream, causing the REPL to exit.
+
+  * .help: Show this list of special commands.
+
+  * .save: Save the current REPL session to a file: > .save ./file/to/save.js
+
+  * .load: Load a file into the current REPL session. > .load ./file/to/load.js
+
+  * .editor: Enter editor mode (ctrl-D to finish, ctrl-C to cancel).
+
+### testing editor mode
+  * open a terminal and run node
+  * enter .editor
+  * write the code you want to edit
+  * when you finish do ctrl-D to finish
+
+
+![REPL editor mode](/assets/images/00005_repl_console_edit.png)
+
+[ more details at https://nodejs.org/api/repl.html]
+
+### Default evaluation
+
+By default, all instances of repl.REPLServer use an evaluation function that evaluates JavaScript expressions and provides access to Node.js' built-in modules.
+
+
+![REPL editor mode](/assets/images/00006_repl_default_evaluation.png)
+
+### global and local scope
+
+try this code
+```JS
+  const repl = require('repl');
+  const msg = 'Potato are healthy, creamy and .... crispy !';
+
+  repl.start('> ').context.m = msg;
+```
+Properties in the context object appear as local within the REPL:
+
+![REPL editor mode](/assets/images/00007_repl_local_scope.png)
+
+Read only
+
+to have a local variable access as read only you have to specify it with the Object.defineProperty.
+
+
+![REPL editor mode](/assets/images/00008_repl_read_only_property.pngf)
+
+### Assignement of _ (underscore)
+
+The default evaluator will, by default, assign the result of the most recently evaluated expression to the special variable _ (underscore). Explicitly setting _ to a value will disable this behavior.
+
+_error refers to last error
+
+### Clear context
+
+
+
+[ more details at https://nodejs.org/api/repl.html]
+
+## Report
+
+## Stream
+
+A stream is an abstract interface for working with streaming data in Node.js. The stream module provides an API for implementing the stream interface.
+
+There are many stream objects provided by Node.js. For instance, a request to an HTTP server and process.stdout are both stream instances.
+
+Streams can be readable, writable, or both. All streams are instances of EventEmitter.
+
+To access the stream module:
+
+```JS
+  const stream = require('stream');
+```
+
+### Types of streams
