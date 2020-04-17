@@ -38,11 +38,25 @@ const getBooksByTitle = (collection,title)=>{
     });
 }
 
+const getTagById = (collection,id)=>{
+    return collection.findOne({"tag_id":id});
+}
+
+const getTagsByName = (collection,tagName)=>{
+    return collection.find({
+        $query:{"tag_name":{$regex:tagName,$options:'i'}},
+        $order:{"tag_name":1}
+    });
+}
+
 module.exports = {
     getBookByAuthorName,
     getBooksByAuthorName,
     getBookByID,
     getBookByIsbn,
+    getBookByIsbn13,
     getBookByTitle,
-    getBooksByTitle
+    getBooksByTitle,
+    getTagById,
+    getTagsByName
 };

@@ -4,9 +4,9 @@ const assert = require('assert');
 
 // Database uri
 const uri = 'mongodb://localhost:27017'
-
 // Database name
 const database_name = 'goodreads';
+
 let _client
 let _db
 
