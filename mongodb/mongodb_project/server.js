@@ -5,7 +5,7 @@ let tagsRouter = require('./routes/tags');
 let booksRouter = require('./routes/books')
 
 
-MongoDB.connectDB(async(err)=>{
+MongoDB.connectDB((err)=>{
     if (err) throw err;
 
     // create an express application
