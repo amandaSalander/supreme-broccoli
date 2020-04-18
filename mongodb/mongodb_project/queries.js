@@ -49,6 +49,50 @@ const getTagsByName = (collection,tagName)=>{
     });
 }
 
+const getBooksTags = (collection,book_id)=>{
+    return collection.aggregate([
+        {
+            $match:{
+                "book_id":book_id
+            }
+        },
+        { $lookup:
+            {
+                from:"books_tags",
+                localField: "book_id",
+                foreignField: "goodreads_book_id",
+                as:"book_tags"
+            }
+        },
+        { $project:{
+                "book_tags":1
+            }
+        },
+        { $unwind:"$book_tags"},
+        { $lookup:{
+                from:"tags",
+                localField: "book_tags.tag_id",
+                foreignField: "tag_id",
+                as:"tags_name"
+            }
+        },
+        { $project:{
+                "tag_id":"$book_tags.tag_id",
+                "tag_count":"$book_tags.count",
+                "tags_name" : 1,
+                "_id":0
+            }
+        },
+        { $unwind:"$tags_name"},
+        { $project:{
+                "tag_id":1,
+                "tag_count":1,
+                "tags_name" : "$tags_name.tag_name"
+            }
+        }
+    ]);
+}
+
 module.exports = {
     getBookByAuthorName,
     getBooksByAuthorName,
@@ -58,5 +102,6 @@ module.exports = {
     getBookByTitle,
     getBooksByTitle,
     getTagById,
-    getTagsByName
+    getTagsByName,
+    getBooksTags
 };

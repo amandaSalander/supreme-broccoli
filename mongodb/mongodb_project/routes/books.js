@@ -5,7 +5,7 @@ var express = require('express'),
     queries = require('../queries');
 
 
-let _booksCollection;
+let _booksCollection
 
 const setBooksCollection = (collection)=>{ _booksCollection = collection;}
 
@@ -170,6 +170,27 @@ router
         }
         else {
             res.send(http.STATUS_CODES[404]);
+        }
+    })
+
+/**
+ * Get book tags by book_id
+ *  example http://localhost:3000/books/3/tags
+*/
+router
+    .get('/:book_id/tags',(req,res)=>{
+        let book_id = utils.TryParseInt(req.params.book_id,null);
+
+        if (_booksCollection && book_id) {
+            queries.getBooksTags(_booksCollection,book_id)
+            .toArray()
+            .then(data=>{
+                if (data) res.send(data);
+                else res.send(http.STATUS_CODES[404]);
+            })
+            .catch(err=>{
+                res.send(http.STATUS_CODES[500]);
+            });
         }
     })
 
